@@ -1,4 +1,4 @@
-package me.nikonbite.emposium.web.template;
+package me.nikonbite.emposium.web.template.processor;
 
 import lombok.experimental.UtilityClass;
 
@@ -18,7 +18,7 @@ public class EmposiumTemplateProcessor {
     }
 
     private String loadTemplate(String templateName) {
-        var templatePath = "resources/" + templateName + ".emposium";
+        var templatePath = templateName + ".emposium";
 
         var inputStream = EmposiumTemplateProcessor.class.getClassLoader().getResourceAsStream(templatePath);
 

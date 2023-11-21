@@ -8,12 +8,15 @@ import me.nikonbite.emposium.rest.request.info.RequestInfo;
 import me.nikonbite.emposium.rest.request.param.Param;
 import me.nikonbite.emposium.rest.route.Route;
 import me.nikonbite.emposium.rest.route.type.RouteType;
+import me.nikonbite.emposium.web.template.processor.EmposiumTemplateProcessor;
+
+import java.util.Map;
 
 public class TestRestController implements RestController {
-    @Route(context = "/hello", type = RouteType.GET)
+    @Route(context = "/", type = RouteType.GET)
     @Header(key = Key.CONTENT_TYPE, value = ContentType.HTML)
-    public String hello() {
-        return "<h1 style=\"color: #7581FF;\">Hello from Emposium</h1>";
+    public String main() {
+        return EmposiumTemplateProcessor.processTemplate("index", Map.of("hello", "Hello", "title", "Emposium"));
     }
 
     @Route(context = "/bye", type = RouteType.GET)
