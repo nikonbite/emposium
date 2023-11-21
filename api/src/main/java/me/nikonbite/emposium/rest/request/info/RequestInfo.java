@@ -1,4 +1,4 @@
-package me.nikonbite.emposium.request.info;
+package me.nikonbite.emposium.rest.request.info;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;

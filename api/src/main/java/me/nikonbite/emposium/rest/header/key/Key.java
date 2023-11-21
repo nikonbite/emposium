@@ -1,4 +1,4 @@
-package me.nikonbite.emposium.header.key;
+package me.nikonbite.emposium.rest.header.key;
 
 public class Key {
     public static final String CONTENT_TYPE = "Content-Type";

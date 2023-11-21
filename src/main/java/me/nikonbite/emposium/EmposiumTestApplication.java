@@ -9,7 +9,7 @@ public class EmposiumTestApplication {
     public static void main(String[] args) throws IOException {
         var server = HttpServer.create(new InetSocketAddress(8080), 0);
 
-        new TestController().register(server);
+        new TestRestController().register(server);
 
         server.start();
 

@@ -1,4 +1,4 @@
-package me.nikonbite.emposium.route.type;
+package me.nikonbite.emposium.rest.route.type;
 
 public enum RouteType {
 

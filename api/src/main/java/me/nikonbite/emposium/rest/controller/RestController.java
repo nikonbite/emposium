@@ -1,4 +1,4 @@
-package me.nikonbite.emposium.controller;
+package me.nikonbite.emposium.rest.controller;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -9,12 +9,12 @@ import java.nio.charset.StandardCharsets;
 
 import com.sun.net.httpserver.HttpServer;
 import lombok.SneakyThrows;
-import me.nikonbite.emposium.header.Header;
-import me.nikonbite.emposium.request.info.RequestInfo;
-import me.nikonbite.emposium.request.param.Param;
-import me.nikonbite.emposium.route.Route;
+import me.nikonbite.emposium.rest.header.Header;
+import me.nikonbite.emposium.rest.request.info.RequestInfo;
+import me.nikonbite.emposium.rest.request.param.Param;
+import me.nikonbite.emposium.rest.route.Route;
 
-public interface Controller extends HttpHandler {
+public interface RestController extends HttpHandler {
 
     @Override
     @SneakyThrows
@@ -44,7 +44,7 @@ public interface Controller extends HttpHandler {
                     return m;
                 }
             }
-            currentClass = (Class<? extends Controller>) currentClass.getSuperclass();
+            currentClass = (Class<? extends RestController>) currentClass.getSuperclass();
         }
         return null;
     }

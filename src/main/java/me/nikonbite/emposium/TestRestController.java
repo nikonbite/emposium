@@ -1,15 +1,15 @@
 package me.nikonbite.emposium;
 
-import me.nikonbite.emposium.controller.Controller;
-import me.nikonbite.emposium.header.Header;
-import me.nikonbite.emposium.header.key.Key;
-import me.nikonbite.emposium.header.value.ContentType;
-import me.nikonbite.emposium.request.info.RequestInfo;
-import me.nikonbite.emposium.request.param.Param;
-import me.nikonbite.emposium.route.Route;
-import me.nikonbite.emposium.route.type.RouteType;
+import me.nikonbite.emposium.rest.controller.RestController;
+import me.nikonbite.emposium.rest.header.Header;
+import me.nikonbite.emposium.rest.header.key.Key;
+import me.nikonbite.emposium.rest.header.value.ContentType;
+import me.nikonbite.emposium.rest.request.info.RequestInfo;
+import me.nikonbite.emposium.rest.request.param.Param;
+import me.nikonbite.emposium.rest.route.Route;
+import me.nikonbite.emposium.rest.route.type.RouteType;
 
-public class TestController implements Controller {
+public class TestRestController implements RestController {
     @Route(context = "/hello", type = RouteType.GET)
     @Header(key = Key.CONTENT_TYPE, value = ContentType.HTML)
     public String hello() {

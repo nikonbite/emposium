@@ -1,4 +1,4 @@
-package me.nikonbite.emposium.header;
+package me.nikonbite.emposium.rest.header;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

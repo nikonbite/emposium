@@ -1,4 +1,4 @@
-package me.nikonbite.emposium.header.value;
+package me.nikonbite.emposium.rest.header.value;
 
 public class ContentType {
     public static final String JSON = "application/json";
