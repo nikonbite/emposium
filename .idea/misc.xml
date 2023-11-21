@@ -1,7 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="EntryPointsManager">
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="me.nikonbite.emposium.route.Route" />
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="me.nikonbite.emposium.rest.route.Route" />
+      <item index="1" class="java.lang.String" itemvalue="me.nikonbite.emposium.route.Route" />
     </list>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
