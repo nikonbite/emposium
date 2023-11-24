@@ -6,13 +6,18 @@ import com.sun.net.httpserver.HttpHandler;
 import java.lang.reflect.Method;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.HashSet;
 
 import com.sun.net.httpserver.HttpServer;
 import lombok.SneakyThrows;
+import me.nikonbite.emposium.rest.authentication.Authentication;
+import me.nikonbite.emposium.rest.controller.route.ControllerRoute;
 import me.nikonbite.emposium.rest.header.Header;
 import me.nikonbite.emposium.rest.request.info.RequestInfo;
 import me.nikonbite.emposium.rest.request.param.Param;
 import me.nikonbite.emposium.rest.route.Route;
+import me.nikonbite.emposium.util.Logger;
 
 public interface RestController extends HttpHandler {
 
@@ -24,12 +29,49 @@ public interface RestController extends HttpHandler {
         var method = findHandlerMethod(requestPath, requestMethod);
 
         if (method != null) {
-            processHeaders(method, exchange);
-            invokeHandlerMethod(method, exchange);
+            if (isAuthorized(method, exchange)) {
+                processHeaders(method, exchange);
+                invokeHandlerMethod(method, exchange);
+            } else {
+                exchange.sendResponseHeaders(401, 0); // Unauthorized
+                exchange.close();
+            }
         } else {
             exchange.sendResponseHeaders(404, 0);
             exchange.close();
         }
+    }
+
+    default String getContext() {
+        var controllerRouteAnnotation = getClass().getAnnotation(ControllerRoute.class);
+        return controllerRouteAnnotation != null ? controllerRouteAnnotation.context() : "";
+    }
+
+    default boolean isAuthorized(Method method, HttpExchange exchange) {
+        var classAuthorization = getClass().getAnnotation(Authentication.class);
+        var methodAuthorization = method.getAnnotation(Authentication.class);
+
+        if (methodAuthorization != null) {
+            return checkKeys(methodAuthorization.keys(), exchange);
+        } else if (classAuthorization != null) {
+            return checkKeys(classAuthorization.keys(), exchange);
+        } else {
+            // No authentication annotation, allow access
+            return true;
+        }
+    }
+
+    @SneakyThrows
+    default boolean checkKeys(String[] expectedKeys, HttpExchange exchange) {
+        var requestHeaders = exchange.getRequestHeaders();
+        var authorizationHeader = requestHeaders.getFirst("Authentication");
+
+        if (authorizationHeader != null) {
+            var providedKeys = authorizationHeader.split(",");
+            return new HashSet<>(Arrays.asList(expectedKeys)).containsAll(Arrays.asList(providedKeys));
+        }
+
+        return false;
     }
 
     @SneakyThrows
@@ -39,7 +81,8 @@ public interface RestController extends HttpHandler {
         while (currentClass != null) {
             for (var m : currentClass.getDeclaredMethods()) {
                 var routeAnnotation = m.getAnnotation(Route.class);
-                if (routeAnnotation != null && routeAnnotation.context().equals(path)
+
+                if (routeAnnotation != null && (getContext() + routeAnnotation.context()).equals(path)
                         && routeAnnotation.type().name().equals(method)) {
                     return m;
                 }

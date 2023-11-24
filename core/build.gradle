@@ -11,20 +11,16 @@ repositories {
 }
 
 dependencies {
-    // Emposium
-    implementation project(":core")
-
     // Apache
-    compileOnly("org.apache.logging.log4j:log4j-core:2.22.0")
-    compileOnly("org.apache.commons:commons-lang3:3.12.0")
+    implementation("org.apache.commons:commons-lang3:3.12.0")
 
     // Google
-    compileOnly("com.google.guava:guava:31.1-jre")
-    compileOnly("com.google.code.gson:gson:2.9.0")
+    implementation("com.google.guava:guava:31.1-jre")
+    implementation("com.google.code.gson:gson:2.9.0")
 
     // JLine
-    compileOnly("org.jline:jline-terminal:3.23.0")
-    compileOnly("org.jline:jline-reader:3.23.0")
+    implementation("org.jline:jline-terminal:3.23.0")
+    implementation("org.jline:jline-reader:3.23.0")
 
     // Lombok
     compileOnly("org.projectlombok:lombok:1.18.30")

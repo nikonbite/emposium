@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <title>${title}</title>
+</head>
+<body>
+<p>${hello}</p>
+${#if hell}
+<p>${hello}</p>
+${/if}
+
+${#each test_array}
+<p>${test_array.name}</p>
+${/each}
+
+<p>--------------</p>
+
+Hello, ${name}!
+
+${#for users}
+<p>${users.name}</p>
+${/for}
+
+${#if name == "George"}
+<p>${name}</p>
+{:else}
+<p>Name not found</p>
+#{/if}
+
+${#if name != null}
+<p>${name}</p>
+{:else}
+<p>Name is null or not found</p>
+#{/if}
+</body>
+</html>

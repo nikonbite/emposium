@@ -1,18 +1,23 @@
 package me.nikonbite.emposium;
 
-import com.sun.net.httpserver.HttpServer;
+import me.nikonbite.emposium.app.EmposiumApplication;
 
-import java.io.IOException;
-import java.net.InetSocketAddress;
+public class EmposiumTestApplication extends EmposiumApplication {
+    protected EmposiumTestApplication() {
+        super(3001);
+    }
 
-public class EmposiumTestApplication {
-    public static void main(String[] args) throws IOException {
-        var server = HttpServer.create(new InetSocketAddress(8080), 0);
+    public static void main(String[] args) {
+        new EmposiumTestApplication();
+    }
 
-        new TestRestController().register(server);
+    @Override
+    public void init() {
+        new TestRestController().register(httpServer);
+    }
 
-        server.start();
+    @Override
+    public void stop() {
 
-        System.out.println("Server is running on port 8080");
     }
 }
